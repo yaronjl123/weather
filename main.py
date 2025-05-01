@@ -7,7 +7,7 @@ import models, schemas, crud
 # Create DB tables
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(docs_url="/index")  # Swagger UI now accessible at /index
 
 
 @app.get("/weather/data", response_model=List[schemas.WeatherDataResponse])

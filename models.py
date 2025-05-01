@@ -4,7 +4,7 @@ import datetime
 
 class Batch(Base):
     __tablename__ = 'batches'
-    batch_id = Column(String, unique=True, index=True, nullable=False)
+    batch_id = Column(String, primary_key=True, index=True, nullable=False)
     forecast_time = Column(DateTime, nullable=False)
     number_of_rows = Column(Integer, default=0)
     start_ingest_time = Column(DateTime, default=datetime.datetime.utcnow)
