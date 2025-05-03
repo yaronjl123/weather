@@ -1,3 +1,4 @@
+import argparse
 import asyncio
 import logging
 import sys
@@ -78,7 +79,16 @@ async def get_batches():
     ]
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run the weather batch ingestion pipeline.")
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        help="Port  by the api service (default: 8000)."
+    )
+    args = parser.parse_args()
+
     if sys.platform == "win32":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=args.port)
