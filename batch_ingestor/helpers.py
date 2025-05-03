@@ -35,8 +35,7 @@ async def process_batch(page_semaphore: Semaphore, batch_ingestion_timeout: int,
     total_ingested = 0
     try:
         total_ingested, total_pages = await ingest_page(page_semaphore, batch_client, batch, page=0)
-        # tasks = [asyncio.create_task(ingest_page(page_semaphore, batch_client, batch, page)) for page in range(1, total_pages+1)]
-        tasks = [asyncio.create_task(ingest_page(page_semaphore, batch_client, batch, page)) for page in range(1,2)]
+        tasks = [asyncio.create_task(ingest_page(page_semaphore, batch_client, batch, page)) for page in range(1, total_pages+1)]
         done, not_done = await asyncio.wait(tasks, timeout=batch_ingestion_timeout, return_when=FIRST_EXCEPTION)
         total_ingested += sum([task.result()[0] for task in done if task.exception() is None])
 
