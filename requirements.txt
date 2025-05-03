@@ -1,5 +1,3 @@
+-r common_requirements.txt
 fastapi
 uvicorn
-sqlalchemy
-pydantic
-psycopg2

@@ -1,0 +1,4 @@
+sqlalchemy
+pydantic
+psycopg[binary,pool]
+httpx_retries
