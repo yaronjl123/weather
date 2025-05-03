@@ -27,8 +27,7 @@ async def save_batch_metadata(batch_metadata: ExternalBatchResponse):
 
             return batch
     except IntegrityError:
-        raise BatchAlreadyProcessed(message=f"Batch {batch.batch_id} was already processed")
-
+        raise BatchAlreadyProcessed(message=f"Batch {batch_metadata.batch_id} was already processed")
 
 
 async def save_weather_data(batch, page, weather_response):
@@ -50,7 +49,7 @@ async def update_ingestion_end(batch: Batch, status: IngestionStatus, number_of_
         batch.status = status
         batch.end_ingest_time = datetime.datetime.utcnow()
         batch.number_of_rows = number_of_rows
-        db_session.add(batch)
+        db_session.merge(batch)
         await db_session.commit()
 
 
